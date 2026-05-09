@@ -1,0 +1,2 @@
+-- Desync TND Hub
+loadstring(game:HttpGet("https://pastefy.app/wIuNJRlJ/raw", true))()
