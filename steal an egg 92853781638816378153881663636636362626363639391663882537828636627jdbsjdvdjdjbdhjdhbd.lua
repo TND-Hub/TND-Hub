@@ -1,12 +1,5 @@
---[[
-    TND Hub | Steal an Egg
-
-    Skidded / ported automation pipeline. Rebranded as TND Hub.
-    Steal - Place - Hatch - Fuse - Sell - Shop - ESP - Movement - Hop - Webhooks
-]]
-
 local GAME_NAME = "Steal an Egg"
-local HEADER_CREDIT = "Made with <3 - TND Hub"
+local HEADER_CREDIT = "Made with tnd - TND Hub"
 
 local genv = (getgenv and getgenv()) or _G
 
